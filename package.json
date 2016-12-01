@@ -1,0 +1,19 @@
+{
+  "name": "fun-assert",
+  "version": "0.1.0",
+  "description": "Generate assertion functions that throw errors on failure.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/bagrounds/fun-assert.git"
+  },
+  "author": "bagrounds@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/bagrounds/fun-assert/issues"
+  },
+  "homepage": "https://gitlab.com/bagrounds/fun-assert#README"
+}
