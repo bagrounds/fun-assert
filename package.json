@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://gitlab.com/bagrounds/fun-assert/issues"
   },
-  "homepage": "https://gitlab.com/bagrounds/fun-assert#README"
+  "homepage": "https://gitlab.com/bagrounds/fun-assert#README",
+  "dependencies": {
+    "deep-equal": "^1.0.1",
+    "json-stringify-safe": "^5.0.1",
+    "type-check": "^0.3.2"
+  }
 }
