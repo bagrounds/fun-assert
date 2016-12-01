@@ -39,9 +39,9 @@
     return asserter
   }
 
-  function type (t) {
+  function type (reference) {
     function asserter (subject) {
-      var ok = typeCheck(t, subject)
+      var ok = typeCheck(reference, subject)
 
       if (!ok) {
         throw error(subject)
@@ -49,7 +49,7 @@
     }
 
     function error (subject) {
-      var verb = 'equal'
+      var verb = 'have type'
 
       return makeError(subject, verb, reference)
     }
@@ -81,7 +81,7 @@
 
       if (errors.length === asserters.length) {
         var combinedError = errors.reduce(function (combined, error) {
-          combined.message += ' | ' + error.message
+          combined.message += ' OR ' + error.message
 
           return combined
         })
@@ -107,19 +107,11 @@
   }
 
   function makeError (subject, verb, reference) {
-      var s = stringify(subject)
-      var r = stringify(reference)
+      var s = stringifySafe(subject)
+      var r = stringifySafe(reference)
       var message = s + ' should ' + verb + ' ' + r
 
       return new Error(message)
-  }
-
-  function stringify (anything) {
-    if (typeof anything === 'object') {
-      return stringifySafe(anything)
-    }
-
-    return '' + anything
   }
 })()
 
