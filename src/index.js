@@ -60,15 +60,38 @@
   }
 
   function and (asserters) {
-    return function (subject) {
+    function asserter (subject) {
       asserters.forEach(function (asserter) {
-        asserter(subject)
+        try {
+          asserter(subject)
+        } catch (e) {
+          throw error(subject)
+        }
       })
     }
+
+    function error (subject) {
+      var errors = asserters.map(function (asserter) {
+        return asserter.error(subject)
+      })
+
+      var combinedError = errors.reduce(function (combined, error) {
+        combined.message += ' AND ' + error.message
+
+        return combined
+      })
+
+      combinedError.message = '(' + combinedError.message + ')'
+      return combinedError
+    }
+
+    asserter.error = error
+
+    return asserter
   }
 
   function or (asserters) {
-    return function (subject) {
+    function asserter (subject) {
       var errors = asserters.reduce(function (results, asserter) {
         try {
           asserter(subject)
@@ -89,21 +112,48 @@
         throw combinedError
       }
     }
+
+    function error (subject) {
+      var errors = asserters.map(function (asserter) {
+        return asserter.error(subject)
+      })
+
+      var combinedError = errors.reduce(function (combined, error) {
+        combined.message += ' OR ' + error.message
+
+        return combined
+      })
+
+      combinedError.message = '(' + combinedError.message + ')'
+      return combinedError
+    }
+
+    asserter.error = error
+
+    return asserter
   }
 
-  function not (asserter) {
-    return function (subject) {
+  function not (originalAsserter) {
+    function asserter (subject) {
       try {
-        asserter(subject)
+        originalAsserter(subject)
       } catch (error) {
         return
       }
 
-      var error = asserter.error(subject)
-      error.message = error.message.replace('should','should not')
-
-      throw error
+      throw error(subject)
     }
+
+    function error (subject) {
+      var original = originalAsserter.error(subject)
+
+      original.message = original.message.replace(/should/g,'should not')
+
+      original.message = '(' + original.message + ')'
+      return original
+    }
+
+    return asserter
   }
 
   function makeError (subject, verb, reference) {
