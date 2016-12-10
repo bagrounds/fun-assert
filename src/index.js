@@ -19,7 +19,7 @@
     function asserter (subject) {
       var ok = reference === subject
 
-      if (typeCheck('Object', reference)) {
+      if (typeCheck('Object|Array', reference)) {
         ok = deepEqual(subject, reference, {strict: true})
       }
 
