@@ -10,6 +10,7 @@
   module.exports = {
     type: type,
     equal: equal,
+    match: match,
     or: or,
     and: and,
     not: not
@@ -32,6 +33,26 @@
       var verb = 'equal'
 
       return makeError(subject, verb, reference)
+    }
+
+    asserter.error = error
+
+    return asserter
+  }
+
+  function match (reference) {
+    function asserter (subject) {
+      var ok = reference.test(subject)
+
+      if (!ok) {
+        throw error(subject)
+      }
+    }
+
+    function error (subject) {
+      var verb = 'match'
+
+      return makeError(subject, verb, reference.source)
     }
 
     asserter.error = error
