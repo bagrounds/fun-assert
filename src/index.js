@@ -8,12 +8,50 @@
 
   /* exports */
   module.exports = {
+    truthy: truthy(),
+    falsey: falsey(),
     type: type,
     equal: equal,
     match: match,
     or: or,
     and: and,
     not: not
+  }
+
+  function truthy () {
+    function asserter (subject) {
+      if (!subject) {
+        throw error(subject)
+      }
+    }
+
+    function error (subject) {
+      var verb = 'be'
+
+      return makeError(subject, verb, 'truthy')
+    }
+
+    asserter.error = error
+
+    return asserter
+  }
+
+  function falsey () {
+    function asserter (subject) {
+      if (subject) {
+        throw error(subject)
+      }
+    }
+
+    function error (subject) {
+      var verb = 'be'
+
+      return makeError(subject, verb, 'falsey')
+    }
+
+    asserter.error = error
+
+    return asserter
   }
 
   function equal (reference) {
