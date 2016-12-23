@@ -4,7 +4,13 @@
   "description": "Generate assertion functions that throw errors on failure.",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "npm run lint",
+    "test": "tap -Rtap --coverage-report=text ./test/index.js",
+    "coverage": "tap --coverage-report=lcov ./test/index.js",
+    "pages-index": "showdown makehtml -i README.md -o public/index.html",
+    "pages": "./script/pages.sh",
+    "lint": "eslint --ignore-path .gitignore --fix .",
+    "document": "jsdoc --destination docs -c .jsdoc.json -r"
   },
   "repository": {
     "type": "git",
@@ -19,6 +25,16 @@
   "dependencies": {
     "deep-equal": "^1.0.1",
     "json-stringify-safe": "^5.0.1",
+    "specifier": "^0.8.1",
     "type-check": "^0.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^3.12.2",
+    "fun-test": "^0.8.2",
+    "fun-test-runner": "^0.3.0",
+    "jsdoc": "^3.4.3",
+    "showdown": "^1.5.3",
+    "tap": "^8.0.1",
+    "verror": "^1.9.0"
   }
 }
