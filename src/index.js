@@ -206,7 +206,7 @@
     function error (subject) {
       var original = originalAsserter.error(subject)
 
-      original.message = original.message.replace(/should/g,'should not')
+      original.message = original.message.replace(/should/g, 'should not')
 
       original.message = '(' + original.message + ')'
       return original
@@ -216,11 +216,11 @@
   }
 
   function makeError (subject, verb, reference) {
-      var s = stringifySafe(subject)
-      var r = stringifySafe(reference)
-      var message = s + ' should ' + verb + ' ' + r
+    var s = stringifySafe(subject)
+    var r = stringifySafe(reference)
+    var message = s + ' should ' + verb + ' ' + r
 
-      return new Error(message)
+    return new Error(message)
   }
 })()
 
