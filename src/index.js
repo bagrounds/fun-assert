@@ -23,6 +23,8 @@
       if (!subject) {
         throw error(subject)
       }
+
+      return subject
     }
 
     function error (subject) {
@@ -41,6 +43,8 @@
       if (subject) {
         throw error(subject)
       }
+
+      return subject
     }
 
     function error (subject) {
@@ -65,6 +69,8 @@
       if (!ok) {
         throw error(subject)
       }
+
+      return subject
     }
 
     function error (subject) {
@@ -85,6 +91,8 @@
       if (!ok) {
         throw error(subject)
       }
+
+      return subject
     }
 
     function error (subject) {
@@ -105,6 +113,8 @@
       if (!ok) {
         throw error(subject)
       }
+
+      return subject
     }
 
     function error (subject) {
@@ -127,6 +137,8 @@
           throw error(subject)
         }
       })
+
+      return subject
     }
 
     function error (subject) {
@@ -170,6 +182,8 @@
 
         throw combinedError
       }
+
+      return subject
     }
 
     function error (subject) {
@@ -197,7 +211,7 @@
       try {
         originalAsserter(subject)
       } catch (error) {
-        return
+        return subject
       }
 
       throw error(subject)
