@@ -174,13 +174,7 @@
       }, [])
 
       if (errors.length === asserters.length) {
-        var combinedError = errors.reduce(function (combined, error) {
-          combined.message += ' OR ' + error.message
-
-          return combined
-        })
-
-        throw combinedError
+        throw error(subject)
       }
 
       return subject
