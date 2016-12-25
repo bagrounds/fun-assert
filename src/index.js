@@ -35,6 +35,10 @@
 
     asserter.error = error
 
+    asserter.toString = function () {
+      return 'isTruthy()'
+    }
+
     return asserter
   }
 
@@ -54,6 +58,10 @@
     }
 
     asserter.error = error
+
+    asserter.toString = function () {
+      return 'isFalsey()'
+    }
 
     return asserter
   }
@@ -81,6 +89,10 @@
 
     asserter.error = error
 
+    asserter.toString = function () {
+      return 'equal(' + reference + ')'
+    }
+
     return asserter
   }
 
@@ -103,6 +115,10 @@
 
     asserter.error = error
 
+    asserter.toString = function () {
+      return 'match(' + reference + ')'
+    }
+
     return asserter
   }
 
@@ -124,6 +140,10 @@
     }
 
     asserter.error = error
+
+    asserter.toString = function () {
+      return 'hasType(' + reference + ')'
+    }
 
     return asserter
   }
@@ -160,6 +180,10 @@
     }
 
     asserter.error = error
+
+    asserter.toString = function () {
+      return 'AND(' + asserters + ')'
+    }
 
     return asserter
   }
@@ -203,6 +227,10 @@
 
     asserter.error = error
 
+    asserter.toString = function () {
+      return 'OR(' + asserters + ')'
+    }
+
     return asserter
   }
 
@@ -225,6 +253,10 @@
     }
 
     asserter.error = error
+
+    asserter.toString = function () {
+      return 'NOT(' + originalAsserter + ')'
+    }
 
     return asserter
   }
