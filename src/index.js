@@ -220,6 +220,8 @@
       return original
     }
 
+    asserter.error = error
+
     return asserter
   }
 
