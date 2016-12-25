@@ -214,9 +214,7 @@
     function error (subject) {
       var original = originalAsserter.error(subject)
 
-      original.message = original.message.replace(/should/g, 'should not')
-
-      original.message = '(' + original.message + ')'
+      original.message = 'NOT(' + original.message + ')'
       return original
     }
 
