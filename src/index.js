@@ -35,6 +35,10 @@
 
     asserter.error = error
 
+    asserter.toString = function () {
+      return 'isTruthy()'
+    }
+
     return asserter
   }
 
@@ -54,6 +58,10 @@
     }
 
     asserter.error = error
+
+    asserter.toString = function () {
+      return 'isFalsey()'
+    }
 
     return asserter
   }
@@ -81,6 +89,10 @@
 
     asserter.error = error
 
+    asserter.toString = function () {
+      return 'equal(' + reference + ')'
+    }
+
     return asserter
   }
 
@@ -102,6 +114,10 @@
     }
 
     asserter.error = error
+
+    asserter.toString = function () {
+      return 'match(' + reference + ')'
+    }
 
     return asserter
   }
@@ -125,6 +141,10 @@
 
     asserter.error = error
 
+    asserter.toString = function () {
+      return 'hasType(' + reference + ')'
+    }
+
     return asserter
   }
 
@@ -143,7 +163,11 @@
 
     function error (subject) {
       var errors = asserters.map(function (asserter) {
-        return asserter.error(subject)
+        var error = asserter.error(subject)
+
+        error.message = '(' + error.message + ')'
+
+        return error
       })
 
       var combinedError = errors.reduce(function (combined, error) {
@@ -152,11 +176,14 @@
         return combined
       })
 
-      combinedError.message = '(' + combinedError.message + ')'
       return combinedError
     }
 
     asserter.error = error
+
+    asserter.toString = function () {
+      return 'AND(' + asserters + ')'
+    }
 
     return asserter
   }
@@ -174,13 +201,7 @@
       }, [])
 
       if (errors.length === asserters.length) {
-        var combinedError = errors.reduce(function (combined, error) {
-          combined.message += ' OR ' + error.message
-
-          return combined
-        })
-
-        throw combinedError
+        throw error(subject)
       }
 
       return subject
@@ -188,7 +209,11 @@
 
     function error (subject) {
       var errors = asserters.map(function (asserter) {
-        return asserter.error(subject)
+        var error = asserter.error(subject)
+
+        error.message = '(' + error.message + ')'
+
+        return error
       })
 
       var combinedError = errors.reduce(function (combined, error) {
@@ -197,11 +222,14 @@
         return combined
       })
 
-      combinedError.message = '(' + combinedError.message + ')'
       return combinedError
     }
 
     asserter.error = error
+
+    asserter.toString = function () {
+      return 'OR(' + asserters + ')'
+    }
 
     return asserter
   }
@@ -220,10 +248,14 @@
     function error (subject) {
       var original = originalAsserter.error(subject)
 
-      original.message = original.message.replace(/should/g, 'should not')
-
-      original.message = '(' + original.message + ')'
+      original.message = 'NOT(' + original.message + ')'
       return original
+    }
+
+    asserter.error = error
+
+    asserter.toString = function () {
+      return 'NOT(' + originalAsserter + ')'
     }
 
     return asserter
