@@ -6,6 +6,7 @@
   var VError = require('verror')
   var apiSpecChecker = require('../src/spec-api')
   var globalFunAssert = require('../src/')
+  var stringifier = require('stringifier')
 
   /* exports */
   module.exports = [
@@ -91,7 +92,12 @@
       }
     }
 
-    test.description = options.method + ' should work'
+    var passOrFail = options.shouldPass ? 'pass' : 'fail'
+
+    var description = options.method + ' should ' + passOrFail + ' for ' +
+      stringify(options.testInput)
+
+    test.description = description
 
     return test
   }
@@ -140,17 +146,29 @@
       {
         method: 'or',
         testInput: [
-          globalFunAssert.type('String'),
-          globalFunAssert.type('Number')
+          globalFunAssert.falsey,
+          globalFunAssert.equal(3)
         ],
         willPass: 3,
-        willFail: null
+        willFail: ' '
       },
       {
         method: 'not',
-        testInput: globalFunAssert.truthy,
-        willPass: '',
-        willFail: ' '
+        testInput: globalFunAssert.match(/\d/),
+        willPass: 'three',
+        willFail: '3'
+      },
+      {
+        method: 'not',
+        testInput: globalFunAssert.or([
+          globalFunAssert.not(globalFunAssert.truthy),
+          globalFunAssert.and([
+            globalFunAssert.equal(4),
+            globalFunAssert.type('Number')
+          ])
+        ]),
+        willPass: ' ',
+        willFail: 4
       }
     ].map(testAssertionGenerator)
   )
@@ -199,7 +217,11 @@
       }
     }
 
-    test.description = options.method + ' should work'
+    var description = options.method + '(' + stringify(options.testInput) +
+      ')' + ' should pass for ' + stringify(options.willPass) +
+      ' and should fail for ' + stringify(options.willFail)
+
+    test.description = description
 
     return test
   }
@@ -208,6 +230,16 @@
     return function transformer (funAssert) {
       return funAssert[method]
     }
+  }
+
+  function stringify (anything) {
+    var options = {
+      handlers: {
+        function: stringifier.strategies.toStr()
+      }
+    }
+
+    return stringifier.stringify(anything, options)
   }
 })()
 
