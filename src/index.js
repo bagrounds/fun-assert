@@ -143,7 +143,11 @@
 
     function error (subject) {
       var errors = asserters.map(function (asserter) {
-        return asserter.error(subject)
+        var error = asserter.error(subject)
+
+        error.message = '(' + error.message + ')'
+
+        return error
       })
 
       var combinedError = errors.reduce(function (combined, error) {
@@ -152,7 +156,6 @@
         return combined
       })
 
-      combinedError.message = '(' + combinedError.message + ')'
       return combinedError
     }
 
@@ -182,7 +185,11 @@
 
     function error (subject) {
       var errors = asserters.map(function (asserter) {
-        return asserter.error(subject)
+        var error = asserter.error(subject)
+
+        error.message = '(' + error.message + ')'
+
+        return error
       })
 
       var combinedError = errors.reduce(function (combined, error) {
@@ -191,7 +198,6 @@
         return combined
       })
 
-      combinedError.message = '(' + combinedError.message + ')'
       return combinedError
     }
 
