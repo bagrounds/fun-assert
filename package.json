@@ -23,15 +23,15 @@
   },
   "homepage": "https://gitlab.com/bagrounds/fun-assert#README",
   "dependencies": {
-    "fun-predicate": "^0.8.1",
+    "fun-predicate": "latest",
     "specifier": "^0.8.1",
     "stringify-anything": "^0.2.0"
   },
   "devDependencies": {
     "eslint": "^3.12.2",
-    "fun-test": "^0.10.0",
-    "fun-test-runner": "^0.4.1",
-    "fun-transform": "^0.3.0",
+    "fun-test": "latest",
+    "fun-test-runner": "latest",
+    "fun-transform": "latest",
     "jsdoc": "^3.4.3",
     "showdown": "^1.5.3",
     "tap": "^8.0.1"
