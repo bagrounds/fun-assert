@@ -27,7 +27,8 @@
   function funAssert (predicate) {
     function result (subject) {
       if (!predicate(subject)) {
-        throw new Error(stringify(predicate))
+        var message = stringify(subject) + ' should ' + stringify(predicate)
+        throw new Error(message)
       }
 
       return subject
