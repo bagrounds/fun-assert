@@ -30,7 +30,7 @@
   "dependencies": {
     "fun-predicate": "latest",
     "specifier": "^0.8.1",
-    "stringify-anything": "^0.2.0"
+    "stringify-anything": "latest"
   },
   "devDependencies": {
     "eslint": "^3.12.2",
