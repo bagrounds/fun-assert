@@ -5,40 +5,44 @@
   var funPredicate = require('fun-predicate')
   var stringify = require('stringify-anything')
 
-  module.exports = funAssert
-  module.exports.truthy = funAssert(funPredicate.truthy)
-  module.exports.falsey = funAssert(funPredicate.falsey)
+  module.exports = assert
+  module.exports.truthy = assert(funPredicate.truthy)
+  module.exports.falsey = assert(funPredicate.falsey)
   module.exports.equal = equal
   module.exports.type = type
   module.exports.match = match
 
   function equal (reference) {
-    return funAssert(funPredicate.equal(reference))
+    return assert(funPredicate.equal(reference))
   }
 
   function type (reference) {
-    return funAssert(funPredicate.type(reference))
+    return assert(funPredicate.type(reference))
   }
 
   function match (reference) {
-    return funAssert(funPredicate.match(reference))
+    return assert(funPredicate.match(reference))
   }
 
-  function funAssert (predicate) {
-    function result (subject) {
+  function assert (predicate) {
+    function toString (subject) {
+      var subjectString = subject ? stringify(subject) : ''
+      return subjectString + ' should ' + stringify(predicate)
+    }
+
+    function assertion (subject) {
       if (!predicate(subject)) {
-        var message = stringify(subject) + ' should ' + stringify(predicate)
+        var message = toString(subject)
+
         throw new Error(message)
       }
 
       return subject
     }
 
-    result.toString = function toString () {
-      return stringify(predicate)
-    }
+    assertion.toString = toString
 
-    return result
+    return assertion
   }
 })()
 
