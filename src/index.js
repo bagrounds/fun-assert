@@ -11,6 +11,7 @@
   module.exports.equal = equal
   module.exports.type = type
   module.exports.match = match
+  module.exports.nothing = function nothing (subject) { return subject }
 
   function equal (reference) {
     return assert(funPredicate.equal(reference))
