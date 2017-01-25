@@ -8,19 +8,9 @@
 
   var subject = require('../src/')
 
-  main()
-
-  function main () {
-    var options = {
-      subject: subject,
-      tests: tests
-    }
-
-    funTestRunner(options, function (error) {
-      error && console.error(error)
-
-      console.log('done')
-    })
-  }
+  funTestRunner({
+    subject: subject,
+    tests: tests
+  })
 })()
 

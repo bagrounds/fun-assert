@@ -10,126 +10,110 @@
   /* exports */
   module.exports = [
     {
-      input: ' ',
-      sync: true,
+      input: [' '],
       transformer: funTransform.toMethod('truthy'),
       result: funAssert.equal(' ')
     },
     {
-      input: '',
-      sync: true,
+      input: [''],
       transformer: funTransform.toMethod('truthy'),
       error: funAssert.truthy
     },
     {
-      input: ' ',
-      sync: true,
+      input: [' '],
       transformer: funTransform.toMethod('falsey'),
       error: funAssert.truthy
     },
     {
-      input: '',
-      sync: true,
+      input: [''],
       transformer: funTransform.toMethod('falsey'),
       result: funAssert.equal('')
     },
     {
-      input: ' ',
-      sync: true,
+      input: [' '],
       transformer: funTransform.toMethod('equal'),
       result: funAssert.type('Function')
     },
     {
-      input: 5,
-      sync: true,
+      input: [5],
       transformer: equal5,
       result: funAssert.equal(5)
     },
     {
-      input: 4,
-      sync: true,
+      input: [4],
       transformer: equal5,
       error: funAssert.truthy
     },
     {
-      input: /\d/,
-      sync: true,
+      input: [/\d/],
       transformer: funTransform.toMethod('match'),
       result: funAssert.type('Function')
     },
     {
-      input: 'a digit: 5!',
-      sync: true,
+      input: ['a digit: 5!'],
       transformer: matchDigit,
       result: funAssert.equal('a digit: 5!')
     },
     {
-      input: 'no digit!',
-      sync: true,
+      input: ['no digit!'],
       transformer: matchDigit,
       error: funAssert.truthy
     },
     {
-      input: funPredicate.or(
+      input: [funPredicate.or(
         funPredicate.type('Number'),
         funPredicate.type('String')
-      ),
-      sync: true,
+      )],
       result: funAssert.type('Function')
     },
     {
-      input: 5,
+      input: [5],
       transformer: funTransform.toResult(
         funPredicate.or(
           funPredicate.type('Number'),
           funPredicate.type('String')
         )
       ),
-      sync: true,
       result: funAssert.equal(5)
     },
     {
-      input: 'a string',
+      input: ['a string'],
       transformer: funTransform.toResult(
         funPredicate.or(
           funPredicate.type('Number'),
           funPredicate.type('String')
         )
       ),
-      sync: true,
       result: funAssert.equal('a string')
     },
     {
-      input: [],
+      input: [[]],
       transformer: funTransform.toResult(
         funPredicate.or(
           funPredicate.type('Number'),
           funPredicate.type('String')
         )
       ),
-      sync: true,
       error: funAssert.truthy
     },
     {
-      input: {},
+      input: [{}],
       transformer: funTransform.toResult(
         funPredicate.or(
           funPredicate.type('Number'),
           funPredicate.type('String')
         )
       ),
-      sync: true,
       error: funAssert.truthy
     },
     {
-      input: null,
+      input: [null],
       transformer: funTransform.toResult(
         funPredicate.or(
           funPredicate.type('Number'),
           funPredicate.type('String')
         )
       ),
-      sync: true,
       error: funAssert.truthy
     }
   ].map(funTest)
