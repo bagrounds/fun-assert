@@ -18,7 +18,9 @@
   ]
 
   METHODS.forEach(function (method) {
-    module.exports[method] = assert(funPredicate[method])
+    module.exports[method] = function (reference) {
+      return assert(funPredicate[method](reference))
+    }
   })
 
   module.exports.nothing = function nothing (subject) { return subject }
