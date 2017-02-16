@@ -30,7 +30,6 @@
   "dependencies": {
     "fun-compose": "^0.2.2",
     "fun-predicate": "latest",
-    "specifier": "^0.8.1",
     "stringify-anything": "latest"
   },
   "devDependencies": {
