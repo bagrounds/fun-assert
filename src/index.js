@@ -2,7 +2,6 @@
   'use strict'
 
   /* imports */
-  var funCompose = require('fun-compose')
   var funPredicate = require('fun-predicate')
   var stringify = require('stringify-anything')
 
@@ -19,7 +18,7 @@
   ]
 
   METHODS.forEach(function (method) {
-    module.exports[method] = funCompose([assert, funPredicate[method]])
+    module.exports[method] = assert(funPredicate[method])
   })
 
   module.exports.nothing = function nothing (subject) { return subject }
