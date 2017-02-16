@@ -2,28 +2,27 @@
   'use strict'
 
   /* imports */
+  var funCompose = require('fun-compose')
   var funPredicate = require('fun-predicate')
   var stringify = require('stringify-anything')
 
   module.exports = assert
-  module.exports.truthy = assert(funPredicate.truthy)
-  module.exports.falsey = assert(funPredicate.falsey)
-  module.exports.equal = equal
-  module.exports.type = type
-  module.exports.match = match
+
+  var METHODS = [
+    'truthy',
+    'falsey',
+    'equal',
+    'type',
+    'match',
+    'fail',
+    'pass'
+  ]
+
+  METHODS.forEach(function (method) {
+    module.exports[method] = funCompose([assert, funPredicate[method]])
+  })
+
   module.exports.nothing = function nothing (subject) { return subject }
-
-  function equal (reference) {
-    return assert(funPredicate.equal(reference))
-  }
-
-  function type (reference) {
-    return assert(funPredicate.type(reference))
-  }
-
-  function match (reference) {
-    return assert(funPredicate.match(reference))
-  }
 
   function assert (predicate) {
     function toString (subject) {

@@ -12,22 +12,22 @@
     {
       input: [' '],
       transformer: funTransform.toMethod('truthy'),
-      result: funAssert.equal(' ')
+      result: funAssert.type('Function')
     },
     {
       input: [''],
       transformer: funTransform.toMethod('truthy'),
-      error: funAssert.truthy
+      result: funAssert.type('Function')
     },
     {
       input: [' '],
       transformer: funTransform.toMethod('falsey'),
-      error: funAssert.truthy
+      result: funAssert.type('Function')
     },
     {
       input: [''],
       transformer: funTransform.toMethod('falsey'),
-      result: funAssert.equal('')
+      result: funAssert.type('Function')
     },
     {
       input: [' '],
@@ -42,7 +42,7 @@
     {
       input: [4],
       transformer: equal5,
-      error: funAssert.truthy
+      error: funAssert.truthy()
     },
     {
       input: [/\d/],
@@ -57,7 +57,7 @@
     {
       input: ['no digit!'],
       transformer: matchDigit,
-      error: funAssert.truthy
+      error: funAssert.truthy()
     },
     {
       input: [funPredicate.or(
@@ -94,7 +94,7 @@
           funPredicate.type('String')
         )
       ),
-      error: funAssert.truthy
+      error: funAssert.truthy()
     },
     {
       input: [{}],
@@ -104,7 +104,7 @@
           funPredicate.type('String')
         )
       ),
-      error: funAssert.truthy
+      error: funAssert.truthy()
     },
     {
       input: [null],
@@ -114,7 +114,7 @@
           funPredicate.type('String')
         )
       ),
-      error: funAssert.truthy
+      error: funAssert.truthy()
     }
   ].map(funTest)
 
