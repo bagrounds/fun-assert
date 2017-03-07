@@ -11,10 +11,11 @@
     'truthy',
     'falsey',
     'equal',
+    'equalDeep',
     'type',
     'match',
-    'fail',
-    'pass'
+    'yes',
+    'no'
   ]
 
   METHODS.forEach(function (method) {
