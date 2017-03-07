@@ -24,6 +24,9 @@
     }
   })
 
+  module.exports.fail = module.exports.no
+  module.exports.pass = module.exports.yes
+
   module.exports.nothing = function nothing (subject) { return subject }
 
   function assert (predicate) {
