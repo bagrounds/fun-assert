@@ -14,6 +14,7 @@
     'equalDeep',
     'type',
     'match',
+    'throws',
     'yes',
     'no'
   ]
