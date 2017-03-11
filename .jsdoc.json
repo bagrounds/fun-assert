@@ -13,5 +13,10 @@
   "templates": {
     "cleverLinks": false,
     "monospaceLinks": false
+  },
+  "opts": {
+    "destination": "./docs",
+    "package": "./package.json",
+    "recurse": true
   }
 }

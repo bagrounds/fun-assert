@@ -12,7 +12,7 @@ mv coverage public/
 
 npm run document
 
-mv docs public/
+mv docs/*/*/ public/docs
 
 mkdir public/img
 
