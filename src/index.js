@@ -1,3 +1,7 @@
+/**
+ *
+ * @module fun-assert
+ */
 ;(function () {
   'use strict'
 
@@ -20,16 +24,24 @@
 
   /* exports */
   module.exports = METHODS.reduce(function (exports, method) {
-    exports[method] = assert(funPredicate[method])
+    exports[method] = funAssert(funPredicate[method])
 
     return exports
-  }, assert)
+  }, funAssert)
 
   module.exports.fail = nameFunction('fail', module.exports.no)
   module.exports.pass = nameFunction('pass', module.exports.yes)
   module.exports.nothing = nameFunction('nothing', module.exports.yes)
 
-  function assert (predicate) {
+  /**
+   *
+   * @function module:fun-assert.funAssert
+   *
+   * @param {Function} predicate - reference -> subject -> Boolean
+   *
+   * @return {Function} reference -> id (throws if predicate fails)
+   */
+  function funAssert (predicate) {
     return curry(nameFunction)(stringify(predicate))(
       function (reference) {
         return curry(nameFunction)(assertString(predicate, reference))(
