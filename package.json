@@ -34,13 +34,13 @@
     "stringify-anything": "latest"
   },
   "devDependencies": {
-    "eslint": "^3.12.2",
+    "eslint": "^3.17.1",
     "fun-test": "latest",
     "fun-test-runner": "latest",
     "fun-transform": "latest",
     "jsdoc": "^3.4.3",
-    "madge": "^1.4.3",
+    "madge": "^1.6.0",
     "showdown": "^1.5.3",
-    "tap": "^8.0.1"
+    "tap": "^10.3.0"
   }
 }
