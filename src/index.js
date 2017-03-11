@@ -4,8 +4,7 @@
   /* imports */
   var funPredicate = require('fun-predicate')
   var stringify = require('stringify-anything')
-
-  module.exports = assert
+  var curry = require('fun-curry')
 
   var METHODS = [
     'truthy',
@@ -19,36 +18,43 @@
     'no'
   ]
 
-  METHODS.forEach(function (method) {
-    module.exports[method] = function (reference) {
-      return assert(funPredicate[method](reference))
-    }
-  })
+  /* exports */
+  module.exports = METHODS.reduce(function (exports, method) {
+    exports[method] = assert(funPredicate[method])
 
-  module.exports.fail = module.exports.no
-  module.exports.pass = module.exports.yes
+    return exports
+  }, assert)
 
-  module.exports.nothing = function nothing (subject) { return subject }
+  module.exports.fail = nameFunction('fail', module.exports.no)
+  module.exports.pass = nameFunction('pass', module.exports.yes)
+  module.exports.nothing = nameFunction('nothing', module.exports.yes)
 
   function assert (predicate) {
-    function toString (subject) {
-      var subjectString = subject ? stringify(subject) : ''
-      return subjectString + ' should ' + stringify(predicate)
+    return curry(nameFunction)(stringify(predicate))(
+      function (reference) {
+        return curry(nameFunction)(assertString(predicate, reference))(
+          function (subject) {
+            if (!predicate(reference)(subject)) {
+              throw Error(assertString(predicate, reference, subject))
+            }
+
+            return subject
+          })
+      })
+  }
+
+  function nameFunction (string, f) {
+    f.toString = function toString () {
+      return string
     }
 
-    function assertion (subject) {
-      if (!predicate(subject)) {
-        var message = toString(subject)
+    return f
+  }
 
-        throw new Error(message)
-      }
-
-      return subject
-    }
-
-    assertion.toString = toString
-
-    return assertion
+  function assertString (predicate, reference, subject) {
+    return (subject === undefined ? '' : stringify(subject) + ' ') +
+      'should ' + stringify(predicate) +
+      (reference === undefined ? '' : ' ' + stringify(reference))
   }
 })()
 

@@ -5,7 +5,6 @@
   var funTest = require('fun-test')
   var funAssert = require('../src/')
   var funTransform = require('fun-transform')
-  var funPredicate = require('fun-predicate')
 
   /* exports */
   module.exports = [
@@ -57,63 +56,6 @@
     {
       input: ['no digit!'],
       transformer: matchDigit,
-      error: funAssert.truthy()
-    },
-    {
-      input: [funPredicate.or(
-        funPredicate.type('Number'),
-        funPredicate.type('String')
-      )],
-      result: funAssert.type('Function')
-    },
-    {
-      input: [5],
-      transformer: funTransform.toResult(
-        funPredicate.or(
-          funPredicate.type('Number'),
-          funPredicate.type('String')
-        )
-      ),
-      result: funAssert.equal(5)
-    },
-    {
-      input: ['a string'],
-      transformer: funTransform.toResult(
-        funPredicate.or(
-          funPredicate.type('Number'),
-          funPredicate.type('String')
-        )
-      ),
-      result: funAssert.equal('a string')
-    },
-    {
-      input: [[]],
-      transformer: funTransform.toResult(
-        funPredicate.or(
-          funPredicate.type('Number'),
-          funPredicate.type('String')
-        )
-      ),
-      error: funAssert.truthy()
-    },
-    {
-      input: [{}],
-      transformer: funTransform.toResult(
-        funPredicate.or(
-          funPredicate.type('Number'),
-          funPredicate.type('String')
-        )
-      ),
-      error: funAssert.truthy()
-    },
-    {
-      input: [null],
-      transformer: funTransform.toResult(
-        funPredicate.or(
-          funPredicate.type('Number'),
-          funPredicate.type('String')
-        )
-      ),
       error: funAssert.truthy()
     }
   ].map(funTest)
