@@ -32,6 +32,7 @@
   module.exports.fail = nameFunction('fail', module.exports.no)
   module.exports.pass = nameFunction('pass', module.exports.yes)
   module.exports.nothing = nameFunction('nothing', module.exports.yes)
+  module.exports.fromPredicate = fromPredicate
 
   /**
    *
@@ -53,6 +54,16 @@
             return subject
           })
       })
+  }
+
+  function fromPredicate (p) {
+    return function (s) {
+      if (p(s)) {
+        return s
+      }
+
+      throw Error(assertString(p, '', s))
+    }
   }
 
   function nameFunction (string, f) {
