@@ -29,6 +29,7 @@
   },
   "homepage": "https://gitlab.com/bagrounds/fun-assert#README",
   "dependencies": {
+    "fun-curry": "latest",
     "fun-predicate": "latest",
     "stringify-anything": "latest"
   },
