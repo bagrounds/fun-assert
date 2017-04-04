@@ -6,7 +6,7 @@
   'use strict'
 
   /* imports */
-  var curry = require('fun-curry')
+  var curry = require('./curry')
   var funPredicate = require('fun-predicate')
   var stringify = require('stringify-anything')
 
