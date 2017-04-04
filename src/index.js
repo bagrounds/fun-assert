@@ -8,7 +8,6 @@
   /* imports */
   var funPredicate = require('fun-predicate')
   var stringify = require('stringify-anything')
-  var curry = require('fun-curry')
 
   var METHODS = [
     'truthy',
@@ -43,9 +42,9 @@
    * @return {Function} reference -> id (throws if predicate fails)
    */
   function funAssert (predicate) {
-    return curry(nameFunction)(stringify(predicate))(
+    return nameFunction(stringify(predicate),
       function (reference) {
-        return curry(nameFunction)(assertString(predicate, reference))(
+        return nameFunction(assertString(predicate, reference),
           function (subject) {
             if (!predicate(reference)(subject)) {
               throw Error(assertString(predicate, reference, subject))
