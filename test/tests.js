@@ -41,7 +41,7 @@
     {
       input: [4],
       transformer: equal5,
-      error: funAssert.truthy()
+      error: funAssert.truthy(true)
     },
     {
       input: [/\d/],
@@ -56,7 +56,7 @@
     {
       input: ['no digit!'],
       transformer: matchDigit,
-      error: funAssert.truthy()
+      error: funAssert.truthy(true)
     }
   ].map(funTest)
 
