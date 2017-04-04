@@ -11,7 +11,6 @@
 
   var METHODS = [
     'truthy',
-    'falsey',
     'equal',
     'equalDeep',
     'type',
