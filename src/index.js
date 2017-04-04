@@ -31,6 +31,11 @@
   module.exports.pass = nameFunction('pass', module.exports.yes)
   module.exports.nothing = nameFunction('nothing', module.exports.yes)
   module.exports.fromPredicate = fromPredicate
+  module.exports.falsey = function falsey () {
+    return function falsey (subject) {
+      return !subject
+    }
+  }
 
   /**
    *
