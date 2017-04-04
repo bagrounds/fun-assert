@@ -6,6 +6,7 @@
   'use strict'
 
   /* imports */
+  var curry = require('fun-curry')
   var funPredicate = require('fun-predicate')
   var stringify = require('stringify-anything')
 
@@ -15,21 +16,21 @@
     'equalDeep',
     'type',
     'match',
-    'throws',
+    'throwsWith',
     'yes',
     'no'
   ]
 
   /* exports */
   module.exports = METHODS.reduce(function (exports, method) {
-    exports[method] = funAssert(funPredicate[method])
+    exports[method] = exports(funPredicate[method])
 
     return exports
-  }, funAssert)
+  }, curry(funAssert))
 
-  module.exports.fail = nameFunction('fail', module.exports.no)
-  module.exports.pass = nameFunction('pass', module.exports.yes)
-  module.exports.nothing = nameFunction('nothing', module.exports.yes)
+  module.exports.fail = module.exports.no
+  module.exports.pass = module.exports.yes
+  module.exports.nothing = module.exports.yes
   module.exports.fromPredicate = fromPredicate
   module.exports.falsey = function falsey () {
     return function falsey (subject) {
@@ -42,21 +43,17 @@
    * @function module:fun-assert.funAssert
    *
    * @param {Function} predicate - reference -> subject -> Boolean
+   * @param {*} reference - for test
+   * @param {*} subject - to test
    *
    * @return {Function} reference -> id (throws if predicate fails)
    */
-  function funAssert (predicate) {
-    return nameFunction(stringify(predicate),
-      function (reference) {
-        return nameFunction(assertString(predicate, reference),
-          function (subject) {
-            if (!predicate(reference)(subject)) {
-              throw Error(assertString(predicate, reference, subject))
-            }
+  function funAssert (predicate, reference, subject) {
+    if (!predicate(reference)(subject)) {
+      throw error(predicate, reference, subject)
+    }
 
-            return subject
-          })
-      })
+    return subject
   }
 
   function fromPredicate (p) {
@@ -65,22 +62,12 @@
         return s
       }
 
-      throw Error(assertString(p, '', s))
+      throw error(p, '', s)
     }
   }
 
-  function nameFunction (string, f) {
-    f.toString = function toString () {
-      return string
-    }
-
-    return f
-  }
-
-  function assertString (predicate, reference, subject) {
-    return (subject === undefined ? '' : stringify(subject) + ' ') +
-      'should ' + stringify(predicate) +
-      (reference === undefined ? '' : ' ' + stringify(reference))
+  function error (predicate, reference, subject) {
+    return Error(stringify(subject) + ' should ' + predicate(reference).name)
   }
 })()
 
