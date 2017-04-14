@@ -31,7 +31,7 @@
   module.exports.fail = module.exports.no
   module.exports.pass = module.exports.yes
   module.exports.nothing = module.exports.yes
-  module.exports.fromPredicate = fromPredicate
+  module.exports.fromPredicate = curry(fromPredicate)
   module.exports.falsey = function falsey () {
     return function falsey (subject) {
       return !subject
@@ -49,25 +49,15 @@
    * @return {Function} reference -> id (throws if predicate fails)
    */
   function funAssert (predicate, reference, subject) {
-    if (!predicate(reference)(subject)) {
-      throw error(predicate, reference, subject)
-    }
-
-    return subject
+    return fromPredicate(predicate(reference), subject)
   }
 
-  function fromPredicate (p) {
-    return function (s) {
-      if (p(s)) {
-        return s
-      }
-
-      throw error(p, '', s)
+  function fromPredicate (p, s) {
+    if (p(s)) {
+      return s
     }
-  }
 
-  function error (predicate, reference, subject) {
-    return Error(stringify(subject) + ' should ' + predicate(reference).name)
+    throw Error(stringify(s) + ' should ' + p.name)
   }
 })()
 
