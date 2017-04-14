@@ -1,6 +1,6 @@
 {
   "name": "fun-assert",
-  "version": "0.13.1",
+  "version": "0.13.2",
   "description": "Generate assertion functions that throw errors on failure.",
   "main": "src/index.js",
   "scripts": {
