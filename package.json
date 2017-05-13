@@ -1,6 +1,6 @@
 {
   "name": "fun-assert",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "description": "Assert that a predicate function passes on a subject",
   "main": "src/index.js",
   "browser": "dist/bundle.js",
