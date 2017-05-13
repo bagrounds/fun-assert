@@ -1,6 +1,8 @@
 # [fun-assert](https://bagrounds.gitlab.io/fun-assert)
 
-Generate assertion functions that throw errors on failure.
+Assert that a predicate function passes on a subject
+
+assert :: (a -> Boolean) -> b -> a | throw
 
 [![build-status](https://gitlab.com/bagrounds/fun-assert/badges/master/build.svg)](https://gitlab.com/bagrounds/fun-assert/commits/master)
 [![coverage-report](https://gitlab.com/bagrounds/fun-assert/badges/master/coverage.svg)](https://gitlab.com/bagrounds/fun-assert/commits/master)
@@ -12,7 +14,7 @@ Generate assertion functions that throw errors on failure.
 
 ## [Test Coverage](https://bagrounds.gitlab.io/fun-assert/coverage/lcov-report/index.html)
 
-## [API Docs](https://bagrounds.gitlab.io/fun-assert/docs/index.html)
+## [API Docs](https://bagrounds.gitlab.io/fun-assert/index.html)
 
 ## Dependencies
 

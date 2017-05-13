@@ -1,7 +1,7 @@
 {
   "name": "fun-assert",
   "version": "0.14.0",
-  "description": "Generate assertion functions that throw errors on failure.",
+  "description": "Assert that a predicate function passes on a subject",
   "main": "src/index.js",
   "browser": "dist/bundle.js",
   "scripts": {

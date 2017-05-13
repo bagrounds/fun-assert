@@ -1,4 +1,6 @@
 # [fun-assert](https://bagrounds.gitlab.io/fun-assert)
 
-Generate assertion functions that throw errors on failure.
+Assert that a predicate function passes on a subject
+
+assert :: (a -> Boolean) -> b -> a | throw
 
