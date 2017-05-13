@@ -4,24 +4,17 @@ rm -rf public coverage docs node_modules
 
 npm install
 
-mkdir public
+npm run readme
+
+npm run document
 
 npm run coverage
 
 mv coverage public/
 
-npm run document
+mv img public/
 
-mv docs/*/*/ public/docs
-
-mkdir public/img
-
-cp img/dependencies.svg public/img/
-cp img/dependencies-test.svg public/img/
-
-npm run readme
-
-npm run pages-index
+npm run browserify
 
 exit 0
 
