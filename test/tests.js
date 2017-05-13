@@ -2,70 +2,25 @@
   'use strict'
 
   /* imports */
+  var predicate = require('fun-predicate')
+  var fn = require('fun-function')
   var funTest = require('fun-test')
-  var funAssert = require('../src/')
-  var funTransform = require('fun-transform')
 
-  /* exports */
   module.exports = [
     {
-      input: [' '],
-      transformer: funTransform.toMethod('truthy'),
-      result: funAssert.type('Function')
+      inputs: [predicate.type('Number'), 1],
+      predicate: predicate.equal(1)
     },
     {
-      input: [''],
-      transformer: funTransform.toMethod('truthy'),
-      result: funAssert.type('Function')
+      inputs: [],
+      predicate: predicate.throwsWith([predicate.type('Number'), '1']),
+      contra: fn.k
     },
     {
-      input: [' '],
-      transformer: funTransform.toMethod('falsey'),
-      result: funAssert.type('Function')
-    },
-    {
-      input: [''],
-      transformer: funTransform.toMethod('falsey'),
-      result: funAssert.type('Function')
-    },
-    {
-      input: [' '],
-      transformer: funTransform.toMethod('equal'),
-      result: funAssert.type('Function')
-    },
-    {
-      input: [5],
-      transformer: equal5,
-      result: funAssert.equal(5)
-    },
-    {
-      input: [4],
-      transformer: equal5,
-      error: funAssert.truthy(true)
-    },
-    {
-      input: [/\d/],
-      transformer: funTransform.toMethod('match'),
-      result: funAssert.type('Function')
-    },
-    {
-      input: ['a digit: 5!'],
-      transformer: matchDigit,
-      result: funAssert.equal('a digit: 5!')
-    },
-    {
-      input: ['no digit!'],
-      transformer: matchDigit,
-      error: funAssert.truthy(true)
+      inputs: [],
+      predicate: predicate.throwsWith(['not a predicate function', '1']),
+      contra: fn.k
     }
-  ].map(funTest)
-
-  function equal5 (funAssert) {
-    return funAssert.equal(5)
-  }
-
-  function matchDigit (funAssert) {
-    return funAssert.match(/\d/)
-  }
+  ].map(funTest.sync)
 })()
 

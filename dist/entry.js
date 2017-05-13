@@ -1,0 +1,2 @@
+funAssert = require('../src')
+

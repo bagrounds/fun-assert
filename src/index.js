@@ -6,58 +6,37 @@
   'use strict'
 
   /* imports */
-  var curry = require('./curry')
-  var funPredicate = require('fun-predicate')
+  var curry = require('fun-curry')
   var stringify = require('stringify-anything')
 
-  var METHODS = [
-    'truthy',
-    'equal',
-    'equalDeep',
-    'type',
-    'match',
-    'throwsWith',
-    'yes',
-    'no'
-  ]
-
   /* exports */
-  module.exports = METHODS.reduce(function (exports, method) {
-    exports[method] = exports(funPredicate[method])
-
-    return exports
-  }, curry(funAssert))
-
-  module.exports.fail = module.exports.no
-  module.exports.pass = module.exports.yes
-  module.exports.nothing = module.exports.yes
-  module.exports.fromPredicate = curry(fromPredicate)
-  module.exports.falsey = function falsey () {
-    return function falsey (subject) {
-      return !subject
-    }
-  }
+  module.exports = curry(assert)
 
   /**
    *
-   * @function module:fun-assert.funAssert
+   * @function module:fun-assert.assert
    *
-   * @param {Function} predicate - reference -> subject -> Boolean
-   * @param {*} reference - for test
+   * @param {Function} predicate - subject -> Boolean
    * @param {*} subject - to test
    *
-   * @return {Function} reference -> id (throws if predicate fails)
+   * @return {Function} subject | throw if !predicate(subject)
    */
-  function funAssert (predicate, reference, subject) {
-    return fromPredicate(predicate(reference), subject)
-  }
+  function assert (predicate, subject) {
+    assertIsFunction(predicate)
 
-  function fromPredicate (p, s) {
-    if (p(s)) {
-      return s
+    if (predicate(subject)) {
+      return subject
     }
 
-    throw Error(stringify(s) + ' should ' + p.name)
+    throw Error('!' + stringify(predicate) + '(' + stringify(subject) + ')')
+  }
+
+  function assertIsFunction (subject) {
+    if (typeof subject === 'function') {
+      return subject
+    }
+
+    throw Error(stringify(subject) + ' should be a function')
   }
 })()
 

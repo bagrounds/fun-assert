@@ -5,7 +5,7 @@
   },
   "source": {
     "include": ["."],
-    "exclude": ["node_modules","docs","coverage","public"],
+    "exclude": ["node_modules","docs","coverage","public", "dist"],
     "includePattern": ".+\\.js(doc)?$",
     "excludePattern": "(^|\\/|\\\\)_"
   },
@@ -15,8 +15,9 @@
     "monospaceLinks": false
   },
   "opts": {
-    "destination": "./docs",
-    "package": "./package.json",
-    "recurse": true
+    "destination": "public",
+    "recurse": true,
+    "template": "node_modules/docdash",
+    "readme": "README.md"
   }
 }

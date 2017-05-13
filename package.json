@@ -3,19 +3,21 @@
   "version": "0.13.2",
   "description": "Generate assertion functions that throw errors on failure.",
   "main": "src/index.js",
+  "browser": "dist/bundle.js",
   "scripts": {
     "pretest": "npm run lint",
     "test": "tap -Rtap --coverage-report=text-summary ./test/index.js",
     "coverage": "tap --coverage-report=lcov ./test/index.js",
     "predependencies": "mkdir -p img",
-    "dependencies": "madge . --image img/dependencies.svg -x 'test|coverage|docs' --include-npm",
+    "dependencies": "madge src --image img/dependencies.svg -x 'public|test|coverage|docs' --include-npm",
     "postdependencies": "npm run dependencies-test",
-    "dependencies-test": "madge . --image img/dependencies-test.svg -x 'coverage|docs' --include-npm",
+    "dependencies-test": "madge . --image img/dependencies-test.svg -x 'dist|public|coverage|docs' --include-npm",
     "pages-index": "showdown makehtml -i README.md -o public/index.html",
     "pages": "./script/pages.sh",
-    "lint": "eslint --ignore-path .gitignore --fix .",
+    "lint": "eslint --ignore-path .gitignore --fix . --ignore-pattern dist",
     "predocument": "rm -rf docs",
     "document": "jsdoc -c .jsdoc.json",
+    "browserify": "browserify dist/entry.js --no-bf | uglifyjs > dist/bundle.js",
     "readme": "cat readme/* > README.md"
   },
   "repository": {
@@ -29,17 +31,20 @@
   },
   "homepage": "https://gitlab.com/bagrounds/fun-assert#README",
   "dependencies": {
-    "fun-predicate": "latest",
-    "stringify-anything": "latest"
+    "fun-curry": "^0.3.0",
+    "stringify-anything": "^0.6.3"
   },
   "devDependencies": {
-    "eslint": "^3.17.1",
-    "fun-test": "latest",
-    "fun-test-runner": "latest",
-    "fun-transform": "latest",
+    "browserify": "^14.3.0",
+    "docdash": "^0.4.0",
+    "eslint": "^3.19.0",
+    "fun-function": "^0.8.0",
+    "fun-predicate": "^0.15.3",
+    "fun-test": "^0.22.1",
+    "fun-test-runner": "^0.8.1",
     "jsdoc": "^3.4.3",
     "madge": "^1.6.0",
-    "showdown": "^1.5.3",
-    "tap": "^10.3.0"
+    "tap": "^10.3.0",
+    "uglify-js": "^3.0.4"
   }
 }

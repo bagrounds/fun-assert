@@ -3,14 +3,22 @@
   'use strict'
 
   /* imports */
-  var funTestRunner = require('fun-test-runner')
   var tests = require('./tests')
+  var runner = require('fun-test-runner')
+  var subject = require('../src')
 
-  var subject = require('../src/')
+  main()
 
-  funTestRunner({
-    subject: subject,
-    tests: tests
-  })
+  function main () {
+    runner(tests, subject).fork(testError, id)
+  }
+
+  function testError (error) {
+    console.error('TEST_ERROR:' + error.message)
+  }
+
+  function id (x) {
+    return x
+  }
 })()
 
